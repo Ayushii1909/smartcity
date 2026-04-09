@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard – SmartCity</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo" onclick="window.location.href='index.html'" style="cursor:pointer">🏙️ Smart<span>City</span></div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <span style="color:rgba(255,255,255,0.6);font-size:13px">Admin Panel</span>
+    <div id="nav-user"></div>
+  </div>
+</header>
+
+<div class="dash-wrap">
+  <!-- SIDEBAR -->
+  <div class="dash-sidebar">
+    <div style="padding:20px 24px 10px">
+      <div style="color:rgba(255,255,255,0.4);font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">Admin Menu</div>
+    </div>
+    <a href="#" onclick="showTab('overview')" id="sb-overview" class="active">🏠 Overview</a>
+    <a href="#" onclick="showTab('complaints')" id="sb-complaints">📋 All Complaints</a>
+    <a href="#" onclick="showTab('users')" id="sb-users">👥 Users</a>
+    <div class="sidebar-label">Quick Links</div>
+    <a href="report.html">📝 Report Issue</a>
+    <a href="index.html">🌐 Public Site</a>
+    <a href="#" onclick="Auth.logout()" style="color:rgba(255,100,100,0.7)">🚪 Logout</a>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="dash-content">
+
+    <!-- OVERVIEW -->
+    <div id="tab-overview">
+      <div class="dash-header">
+        <h2>Dashboard Overview</h2>
+        <p id="dash-date"></p>
+      </div>
+      <div class="stat-cards">
+        <div class="stat-card"><div class="num" id="a-total">0</div><div class="lbl">Total Complaints</div></div>
+        <div class="stat-card" style="border-top-color:var(--amber)"><div class="num" id="a-pending">0</div><div class="lbl">Pending</div></div>
+        <div class="stat-card" style="border-top-color:var(--blue)"><div class="num" id="a-progress">0</div><div class="lbl">In Progress</div></div>
+        <div class="stat-card" style="border-top-color:var(--green)"><div class="num" id="a-solved">0</div><div class="lbl">Solved</div></div>
+      </div>
+
+      <h3 style="color:var(--navy);margin-bottom:16px;font-size:18px">Recent Complaints</h3>
+      <div id="overview-list"></div>
+    </div>
+
+    <!-- ALL COMPLAINTS -->
+    <div id="tab-complaints" style="display:none">
+      <div class="dash-header">
+        <h2>All Complaints</h2>
+        <p>Manage and update complaint statuses</p>
+      </div>
+      <div class="filter-bar">
+        <input type="text" id="admin-search" placeholder="Search by ID, name, service..." oninput="renderComplaints()" style="min-width:220px">
+        <select id="admin-filter-svc" onchange="renderComplaints()">
+          <option value="">All Services</option>
+          <option>Electricity</option><option>Water</option>
+          <option>Road</option><option>Garbage</option>
+          <option>Traffic</option><option>Emergency</option>
+        </select>
+        <select id="admin-filter-status" onchange="renderComplaints()">
+          <option value="">All Status</option>
+          <option>Pending</option><option>In Progress</option>
+          <option>Solved</option><option>Rejected</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th><th>Service</th><th>Title</th><th>Citizen</th><th>Location</th><th>Date</th><th>Status</th><th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="complaints-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- USERS -->
+    <div id="tab-users" style="display:none">
+      <div class="dash-header">
+        <h2>Registered Users</h2>
+        <p>All citizens registered on the portal</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Name</th><th>Email</th><th>Phone</th><th>Joined</th><th>Complaints</th></tr>
+          </thead>
+          <tbody id="users-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- UPDATE MODAL -->
+<div class="modal-bg" id="update-modal">
+  <div class="modal">
+    <span class="modal-close" onclick="closeModal()">×</span>
+    <h3>Update Complaint Status</h3>
+    <p style="color:var(--text-light);font-size:14px;margin-bottom:20px" id="modal-complaint-id"></p>
+    <div class="form-group">
+      <label>New Status</label>
+      <select id="modal-status">
+        <option>Pending</option>
+        <option>In Progress</option>
+        <option>Solved</option>
+        <option>Rejected</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Official Note (optional)</label>
+      <textarea id="modal-note" placeholder="Add a resolution note or update for the citizen..."></textarea>
+    </div>
+    <div style="display:flex;gap:12px">
+      <button class="btn" onclick="saveStatus()">Save Update</button>
+      <button class="btn-navy" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+let editingId = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+  const user = requireLogin(true);
+  if (!user) return;
+
+  document.getElementById('dash-date').textContent = new Date().toLocaleDateString('en-IN', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  loadOverview();
+});
+
+function showTab(name) {
+  ['overview','complaints','users'].forEach(t => {
+    document.getElementById('tab-'+t).style.display = t === name ? '' : 'none';
+    document.getElementById('sb-'+t).classList.toggle('active', t === name);
+  });
+  if (name === 'complaints') renderComplaints();
+  if (name === 'users') renderUsers();
+}
+
+function loadOverview() {
+  const all = Complaints.getAll();
+  document.getElementById('a-total').textContent = all.length;
+  document.getElementById('a-pending').textContent = all.filter(c=>c.status==='Pending').length;
+  document.getElementById('a-progress').textContent = all.filter(c=>c.status==='In Progress').length;
+  document.getElementById('a-solved').textContent = all.filter(c=>c.status==='Solved').length;
+
+  const el = document.getElementById('overview-list');
+  el.innerHTML = all.slice(0,6).map(c => `
+    <div class="complaint-card">
+      <div>
+        <div class="complaint-id">${c.id}</div>
+        <div class="complaint-title">${c.service} – ${c.title}</div>
+        <div class="complaint-meta">👤 ${c.userName} &nbsp;|&nbsp; 📅 ${formatDate(c.createdAt)}</div>
+        ${c.location ? `<div class="complaint-loc">📍 ${c.location}</div>` : ''}
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+        ${statusBadge(c.status)}
+        <button class="btn btn-sm" onclick="openModal('${c.id}')">Update</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderComplaints() {
+  const query = (document.getElementById('admin-search').value || '').toLowerCase();
+  const svc = document.getElementById('admin-filter-svc').value;
+  const status = document.getElementById('admin-filter-status').value;
+  let list = Complaints.getAll();
+  if (query) list = list.filter(c => c.id.toLowerCase().includes(query) || c.userName.toLowerCase().includes(query) || c.service.toLowerCase().includes(query) || c.title.toLowerCase().includes(query));
+  if (svc) list = list.filter(c => c.service === svc);
+  if (status) list = list.filter(c => c.status === status);
+
+  const tbody = document.getElementById('complaints-tbody');
+  if (!list.length) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--text-light)">No complaints found.</td></tr>'; return; }
+  tbody.innerHTML = list.map(c => `
+    <tr>
+      <td style="font-family:'Sora',sans-serif;font-size:12px">${c.id}</td>
+      <td>${c.service}</td>
+      <td style="max-width:160px">${c.title}</td>
+      <td>${c.userName}<br><small style="color:var(--text-light)">${c.userPhone||''}</small></td>
+      <td style="font-size:13px;color:var(--blue)">${c.location||'–'}</td>
+      <td style="font-size:12px">${formatDate(c.createdAt)}</td>
+      <td>${statusBadge(c.status)}</td>
+      <td><button class="btn btn-sm" onclick="openModal('${c.id}')">Update</button></td>
+    </tr>
+  `).join('');
+}
+
+function renderUsers() {
+  const users = Auth.getUsers();
+  const all = Complaints.getAll();
+  const tbody = document.getElementById('users-tbody');
+  if (!users.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--text-light)">No registered users.</td></tr>'; return; }
+  tbody.innerHTML = users.map(u => `
+    <tr>
+      <td>${u.name}</td>
+      <td>${u.email}</td>
+      <td>${u.phone||'–'}</td>
+      <td style="font-size:13px">${formatDate(u.joined)}</td>
+      <td>${all.filter(c=>c.userId===u.id).length}</td>
+    </tr>
+  `).join('');
+}
+
+function openModal(id) {
+  editingId = id;
+  const c = Complaints.getById(id);
+  document.getElementById('modal-complaint-id').textContent = id + ' — ' + c.title;
+  document.getElementById('modal-status').value = c.status;
+  document.getElementById('modal-note').value = c.adminNote || '';
+  document.getElementById('update-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('update-modal').classList.remove('open');
+  editingId = null;
+}
+
+function saveStatus() {
+  const status = document.getElementById('modal-status').value;
+  const note = document.getElementById('modal-note').value.trim();
+  Complaints.updateStatus(editingId, status, note);
+  closeModal();
+  toast('Status updated to ' + status, 'success');
+  loadOverview();
+  renderComplaints();
+}
+
+document.getElementById('update-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('update-modal')) closeModal();
+});
+</script>
+</body>
+</html>

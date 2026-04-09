@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Traffic Problems – SmartCity</title><link rel="stylesheet" href="../style.css"></head>
+<body>
+<header class="navbar">
+  <div class="logo" onclick="window.location.href='../index.html'" style="cursor:pointer">🏙️ Smart<span>City</span></div>
+  <nav id="main-nav"><a href="../index.html">Home</a><a href="../report.html">Report Issue</a><a href="../track.html">Track</a><a href="../about.html">About</a></nav>
+  <div style="display:flex;align-items:center"><div id="nav-user"></div><div class="hamburger" id="hamburger"><span></span><span></span><span></span></div></div>
+</header>
+<div class="page-hero" style="background:linear-gradient(135deg,#0b2d4e,#e74c3c 200%)">
+  <div style="font-size:48px">🚦</div>
+  <div><h1>Traffic Problems</h1><p>Report traffic and road safety issues</p></div>
+</div>
+<section class="section">
+  <h2>Common Issues</h2><p class="section-sub">Click any issue to pre-fill the complaint form</p>
+  <div class="grid-3">
+    <div class="service-card" onclick="report('Traffic Signal Not Working')"><div class="sicon">🚦</div><h3>Signal Fault</h3><p>Traffic signal broken or dark</p></div>
+    <div class="service-card" onclick="report('Illegal Parking Blocking Road')"><div class="sicon">🚗</div><h3>Illegal Parking</h3><p>Vehicles blocking road or footpath</p></div>
+    <div class="service-card" onclick="report('Road Encroachment by Vendors')"><div class="sicon">🛒</div><h3>Vendor Encroachment</h3><p>Street vendors blocking traffic</p></div>
+    <div class="service-card" onclick="report('Missing Road Signs / Markings')"><div class="sicon">🪧</div><h3>Missing Signs</h3><p>Absent or damaged road signs</p></div>
+    <div class="service-card" onclick="report('Accident-Prone Spot')"><div class="sicon">🚑</div><h3>Accident Spot</h3><p>Dangerous stretch causing accidents</p></div>
+    <div class="service-card" onclick="report('Speed Breaker Needed')"><div class="sicon">🛑</div><h3>Speed Breaker</h3><p>Need speed bump in area</p></div>
+  </div>
+</section>
+<div style="text-align:center;padding:0 0 50px">
+  <p style="color:var(--text-light);margin-bottom:14px">Traffic Police: <strong>0278-242-2100</strong> | Emergency: <strong>100</strong></p>
+  <button class="btn" onclick="window.location.href='../report.html?service=Traffic'">📝 Report Traffic Issue</button>
+</div>
+<footer><p>© 2026 Bhavnagar Smart City Management System</p></footer>
+<script src="../app.js"></script>
+<script>function report(t){window.location.href='../report.html?service=Traffic&title='+encodeURIComponent(t);}</script>
+</body></html>

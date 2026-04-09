@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About – SmartCity</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo" onclick="window.location.href='index.html'" style="cursor:pointer">🏙️ Smart<span>City</span></div>
+  <nav id="main-nav">
+    <a href="index.html">Home</a>
+    <a href="report.html">Report Issue</a>
+    <a href="track.html">Track Status</a>
+    <a href="mycomplaints.html">My Complaints</a>
+    <a href="about.html" class="active">About</a>
+  </nav>
+  <div style="display:flex;align-items:center">
+    <div id="nav-user"></div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div style="font-size:42px">🏛️</div>
+  <div>
+    <h1>About Smart City Portal</h1>
+    <p>Bhavnagar Municipal Corporation – Digital Citizen Services</p>
+  </div>
+</div>
+
+<section class="section light">
+  <div style="max-width:760px;margin:0 auto">
+    <h2>Our Mission</h2>
+    <p class="section-sub">Empowering citizens through transparent, digital governance</p>
+    <p style="color:var(--text);line-height:1.8;margin-bottom:20px">
+      The Bhavnagar Smart City Management System is a digital initiative by the Government of Gujarat to modernize civic services. Our platform enables citizens to report infrastructure problems, track their resolution in real time, and engage directly with city departments.
+    </p>
+    <p style="color:var(--text);line-height:1.8;margin-bottom:40px">
+      We believe in transparent, accountable governance. Every complaint is logged, assigned, and tracked — ensuring no issue goes unnoticed.
+    </p>
+
+    <div class="grid-3" style="margin-bottom:50px">
+      <div class="card" style="text-align:center">
+        <div style="font-size:36px;margin-bottom:10px">⚡</div>
+        <h3>Fast Resolution</h3>
+        <p>Complaints are routed to the right department immediately</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-size:36px;margin-bottom:10px">📍</div>
+        <h3>Location Tracking</h3>
+        <p>GPS-based issue reporting ensures accurate field response</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-size:36px;margin-bottom:10px">🔒</div>
+        <h3>Transparent Process</h3>
+        <p>Track every complaint from submission to resolution</p>
+      </div>
+    </div>
+
+    <h2 style="margin-bottom:10px">Contact Us</h2>
+    <p class="section-sub">Reach out to the Bhavnagar Municipal Corporation</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="margin-bottom:12px">🏢 Office Address</h3>
+        <p style="color:var(--text);line-height:1.8">
+          Bhavnagar Municipal Corporation<br>
+          Nilambagh, Bhavnagar – 364001<br>
+          Gujarat, India
+        </p>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:12px">📞 Contact Numbers</h3>
+        <p style="color:var(--text);line-height:2">
+          Helpline: <strong>1800-200-2489</strong><br>
+          Water Dept: <strong>0278-242-1234</strong><br>
+          Electricity: <strong>0278-242-5678</strong><br>
+          Emergency: <strong>112</strong>
+        </p>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:12px">📧 Email</h3>
+        <p style="color:var(--text);line-height:2">
+          General: <strong>info@bhavnagarcity.gov.in</strong><br>
+          Complaints: <strong>complaints@smartcity.gov.in</strong><br>
+          Admin: <strong>admin@smartcity.gov.in</strong>
+        </p>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:12px">🕐 Office Hours</h3>
+        <p style="color:var(--text);line-height:2">
+          Mon – Fri: <strong>9:00 AM – 6:00 PM</strong><br>
+          Saturday: <strong>9:00 AM – 2:00 PM</strong><br>
+          Sunday: <strong>Closed</strong><br>
+          Emergency: <strong>24/7</strong>
+        </p>
+      </div>
+    </div>
+
+    <div style="margin-top:40px;text-align:center">
+      <h3 style="color:var(--navy);margin-bottom:16px">📍 Find Us</h3>
+      <div id="office-map" style="border-radius:12px;overflow:hidden;border:1.5px solid var(--gray)"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Bhavnagar Smart City Management System | Government of Gujarat | All Rights Reserved</p>
+</footer>
+
+<script src="app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Bhavnagar city center coordinates
+  initMap('office-map', 22.3039, 70.8022, 'Bhavnagar Municipal Corporation');
+});
+</script>
+</body>
+</html>

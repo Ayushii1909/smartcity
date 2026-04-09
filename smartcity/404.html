@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found – SmartCity</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="logo" onclick="window.location.href='index.html'" style="cursor:pointer">🏙️ Smart<span>City</span></div>
+  <nav><a href="index.html">Home</a></nav>
+  <div id="nav-user"></div>
+</header>
+<div style="text-align:center;padding:100px 20px;min-height:calc(100vh - 120px);display:flex;align-items:center;justify-content:center;flex-direction:column">
+  <div style="font-size:80px;margin-bottom:16px">🏙️</div>
+  <h1 style="font-size:80px;color:var(--navy);font-family:'Sora',sans-serif;font-weight:700;line-height:1">404</h1>
+  <h2 style="font-size:24px;color:var(--navy);margin:10px 0">Page Not Found</h2>
+  <p style="color:var(--text-light);margin-bottom:28px;max-width:400px">The page you're looking for doesn't exist. It may have been moved or deleted.</p>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+    <button class="btn" onclick="window.location.href='index.html'">🏠 Go to Home</button>
+    <button class="btn-navy" style="width:auto" onclick="history.back()">← Go Back</button>
+  </div>
+</div>
+<footer><p>© 2026 Bhavnagar Smart City Management System</p></footer>
+<script src="app.js"></script>
+</body>
+</html>
