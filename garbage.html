@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Garbage Collection – SmartCity</title><link rel="stylesheet" href="../style.css"></head>
+<body>
+<header class="navbar">
+  <div class="logo" onclick="window.location.href='../index.html'" style="cursor:pointer">🏙️ Smart<span>City</span></div>
+  <nav id="main-nav"><a href="../index.html">Home</a><a href="../report.html">Report Issue</a><a href="../track.html">Track</a><a href="../about.html">About</a></nav>
+  <div style="display:flex;align-items:center"><div id="nav-user"></div><div class="hamburger" id="hamburger"><span></span><span></span><span></span></div></div>
+</header>
+<div class="page-hero" style="background:linear-gradient(135deg,#0b2d4e,#00b894 200%)">
+  <div style="font-size:48px">🗑️</div>
+  <div><h1>Garbage Collection</h1><p>Report waste and sanitation issues</p></div>
+</div>
+<section class="section">
+  <h2>Common Issues</h2><p class="section-sub">Click any issue to pre-fill the complaint form</p>
+  <div class="grid-3">
+    <div class="service-card" onclick="report('Garbage Pickup Missed')"><div class="sicon">🚛</div><h3>Missed Pickup</h3><p>Garbage not collected today</p></div>
+    <div class="service-card" onclick="report('Illegal Garbage Dumping')"><div class="sicon">🚯</div><h3>Illegal Dumping</h3><p>Unauthorized waste disposal site</p></div>
+    <div class="service-card" onclick="report('Overflowing Dustbin')"><div class="sicon">🗑️</div><h3>Overflowing Bin</h3><p>Public dustbin full and overflowing</p></div>
+    <div class="service-card" onclick="report('Animal Carcass on Road')"><div class="sicon">⚠️</div><h3>Animal Carcass</h3><p>Dead animal needs removal</p></div>
+    <div class="service-card" onclick="report('Construction Debris on Road')"><div class="sicon">🏗️</div><h3>Debris Dumping</h3><p>Construction waste on public road</p></div>
+    <div class="service-card" onclick="report('Sanitation / Cleanliness Issue')"><div class="sicon">🧹</div><h3>Cleanliness</h3><p>Unclean public area or street</p></div>
+  </div>
+</section>
+<div style="text-align:center;padding:0 0 50px">
+  <button class="btn" onclick="window.location.href='../report.html?service=Garbage'">📝 Report Garbage Issue</button>
+</div>
+<footer><p>© 2026 Bhavnagar Smart City Management System</p></footer>
+<script src="../app.js"></script>
+<script>function report(t){window.location.href='../report.html?service=Garbage&title='+encodeURIComponent(t);}</script>
+</body></html>
