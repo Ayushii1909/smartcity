@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Emergency Services – SmartCity</title><link rel="stylesheet" href="../style.css"></head>
+<body>
+<header class="navbar">
+  <div class="logo" onclick="window.location.href='../index.html'" style="cursor:pointer">🏙️ Smart<span>City</span></div>
+  <nav id="main-nav"><a href="../index.html">Home</a><a href="../report.html">Report Issue</a><a href="../track.html">Track</a><a href="../about.html">About</a></nav>
+  <div style="display:flex;align-items:center"><div id="nav-user"></div><div class="hamburger" id="hamburger"><span></span><span></span><span></span></div></div>
+</header>
+<div class="page-hero" style="background:linear-gradient(135deg,#0b2d4e,#c0392b 200%)">
+  <div style="font-size:48px">🚨</div>
+  <div><h1>Emergency Services</h1><p>For life-threatening emergencies, call 112 immediately</p></div>
+</div>
+
+<!-- EMERGENCY NUMBERS -->
+<section class="section light" style="padding:36px 40px">
+  <div style="background:#fff3cd;border:2px solid #ffc107;border-radius:12px;padding:20px 24px;max-width:700px;margin:0 auto 30px;text-align:center">
+    <div style="font-size:28px;margin-bottom:6px">🆘</div>
+    <h3 style="color:#856404;font-size:18px">FOR LIFE-THREATENING EMERGENCIES</h3>
+    <p style="color:#856404;font-size:24px;font-weight:700;margin:6px 0">Call 112 immediately</p>
+    <p style="color:#856404;font-size:14px">Do not use this portal for active emergencies. Call emergency services directly.</p>
+  </div>
+
+  <div class="grid-2" style="max-width:700px;margin:0 auto">
+    <div class="card" style="border-top:3px solid var(--red)">
+      <h3>🚑 Medical Emergency</h3>
+      <p style="margin:10px 0;color:var(--text-light)">Ambulance, hospital, urgent medical help</p>
+      <strong style="font-size:20px;color:var(--red)">108</strong>
+    </div>
+    <div class="card" style="border-top:3px solid var(--orange)">
+      <h3>🔥 Fire Department</h3>
+      <p style="margin:10px 0;color:var(--text-light)">Fire, gas leak, explosion</p>
+      <strong style="font-size:20px;color:var(--orange)">101</strong>
+    </div>
+    <div class="card" style="border-top:3px solid var(--blue)">
+      <h3>🚓 Police</h3>
+      <p style="margin:10px 0;color:var(--text-light)">Crime, theft, law enforcement</p>
+      <strong style="font-size:20px;color:var(--blue)">100</strong>
+    </div>
+    <div class="card" style="border-top:3px solid var(--teal)">
+      <h3>🌊 Disaster Management</h3>
+      <p style="margin:10px 0;color:var(--text-light)">Flood, earthquake, cyclone relief</p>
+      <strong style="font-size:20px;color:var(--teal)">1077</strong>
+    </div>
+  </div>
+</section>
+<section class="section" style="padding-top:20px">
+  <h2 style="text-align:center">Report Non-Emergency Issue</h2>
+  <p class="section-sub" style="text-align:center">For non-life-threatening issues related to emergency infrastructure</p>
+  <div class="grid-3" style="max-width:800px;margin:0 auto">
+    <div class="service-card" onclick="report('Fire Hydrant Not Working')"><div class="sicon">🔴</div><h3>Fire Hydrant</h3><p>Non-functional fire hydrant</p></div>
+    <div class="service-card" onclick="report('Emergency Exit Blocked')"><div class="sicon">🚪</div><h3>Exit Blocked</h3><p>Emergency exit obstructed</p></div>
+    <div class="service-card" onclick="report('Missing Safety Equipment')"><div class="sicon">🦺</div><h3>Safety Equipment</h3><p>Missing public safety gear</p></div>
+  </div>
+  <div style="text-align:center;margin-top:24px">
+    <button class="btn" onclick="window.location.href='../report.html?service=Emergency'">📝 Report Emergency Infrastructure Issue</button>
+  </div>
+</section>
+<footer><p>© 2026 Bhavnagar Smart City Management System | Emergency: 112</p></footer>
+<script src="../app.js"></script>
+<script>function report(t){window.location.href='../report.html?service=Emergency&title='+encodeURIComponent(t);}</script>
+</body></html>
